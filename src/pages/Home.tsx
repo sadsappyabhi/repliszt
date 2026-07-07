@@ -21,6 +21,15 @@ function Home() {
     const token_hash = params.get("token_hash");
     const type = params.get("type");
 
+    // Supabase uses hashParams for errors, check for this as well
+    const hashParams = new URLSearchParams(window.location.hash.substring(1));
+    const errorCode = hashParams.get("error_code");
+    const errorDescription = hashParams.get("error_description");
+
+    if (errorCode) {
+      setAuthError(errorDescription);
+    }
+
     if (token_hash) {
       supabase.auth
         .verifyOtp({
@@ -90,7 +99,7 @@ function Home() {
   // Show auth error
   if (authError) {
     return (
-      <div className="flex flex-\ol items-center justify-center h-screen">
+      <div className="flex flex-col items-center justify-center h-screen">
         <h1 className="text-2xl font-bold">Authentication</h1>
         <p className="text-xl">✗ Authentication failed</p>
         <p className="text-xl">{authError}</p>
