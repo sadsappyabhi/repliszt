@@ -40,19 +40,21 @@ function Home() {
     }
 
     // Check for existing session using getClaims
-    supabase.auth.getClaims().then(({ data: { claims } }) => {
-      setClaims(claims);
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
+      if (!error && session) {
+        setClaims(session.user || null);
+      }
     });
-    // Listen for auth changes
+
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(() => {
-      supabase.auth.getClaims().then(({ data: { claims } }) => {
-        setClaims(claims);
-      });
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setClaims(session?.user || null);
     });
+
     return () => subscription.unsubscribe();
   }, []);
+
   const handleLogin = async (event) => {
     event.preventDefault();
     setLoading(true);

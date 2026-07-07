@@ -3,16 +3,16 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-// import About from "./pages/About";
+import About from "./pages/About";
 
 function App() {
   return (
     <>
       <Header />
-      <main className="flex-grow">
+      <main className="grow">
         <Routes>
           <Route index element={<Home />} />
-          {/* <Route path="about" element={<About />} /> */}
+          <Route path="about" element={<About />} />
         </Routes>
       </main>
       <Footer />
