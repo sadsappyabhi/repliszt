@@ -125,7 +125,9 @@ function Home() {
         <h1 className="text-2xl font-bold">Welcome!</h1>
         <p className="text-xl">You are logged in as: {claims.email}</p>
         <div className="flex">
-          <button className="btn btn-primary my-5 mx-2">View Lists</button>
+          <Link to="/lists">
+            <button className="btn btn-primary my-5 mx-2">View Lists</button>
+          </Link>
           <button className="btn btn-warning my-5 mx-2" onClick={handleLogout}>
             Sign Out
           </button>
